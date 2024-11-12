@@ -26,3 +26,13 @@ export class SignUpDTO {
   @IsString()
   password: string;
 }
+
+export class SignInDTO {
+  @ApiProperty()
+  @IsEmail()
+  email: string;
+
+  @ApiProperty()
+  @IsString()
+  password: string;
+}

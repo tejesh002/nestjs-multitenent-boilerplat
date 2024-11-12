@@ -1,44 +1,39 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NestMiddleware,
+} from '@nestjs/common';
 import { NextFunction, Request } from 'express';
+import { AdminAccountService } from '../admin/admin-accounts/admin-account.service';
 
 const TENANT_HEADER = 'x-tenant-id';
 
 @Injectable()
 export class tenancyMiddleware implements NestMiddleware {
-  constructor() {}
+  constructor(private readonly adminaccountservice: AdminAccountService) {}
   public async use(
     req: Request,
     res: Response,
     next: NextFunction,
   ): Promise<void> {
     const header = req.headers[TENANT_HEADER] as string;
-    // if (!header) {
-    //   throw new BadRequestException('Please provide API KEY or SLUG');
-    // }
 
-    // const condition = {};
-    // if (
-    //   [
-    //     '/auth/login',
-    //     '/auth/social_login',
-    //     '/auth/forget_password',
-    //     '/auth/reset_password',
-    //   ].includes(req.url)
-    // ) {
-    //   condition['slug'] = header;
-    // } else {
-    //   condition['api_key'] = header;
-    // }
-    // const query = [{ slug: header.toLowerCase() }, { api_key: header }];
-    // const account = await this.adminaccountservice.findOne(query);
+    if (!header) {
+      throw new BadRequestException('Please provide API KEY or SLUG');
+    }
 
-    // if (!account) {
-    //   throw new BadRequestException('Invalid Account');
-    // }
+    const query = [{ slug: header.toLowerCase() }];
+    const account = await this.adminaccountservice.findOne(query);
 
-    // if (account.status != 'ACTIVE') {
-    //   throw new BadRequestException('Account Not active');
-    // }
+    if (!account) {
+      throw new BadRequestException('Invalid Account');
+    }
+
+    if (account.status != 'ACTIVE') {
+      throw new BadRequestException('Account Not active');
+    }
+
+    req['tenantId'] = `tenent_${account.id}`;
 
     next();
   }

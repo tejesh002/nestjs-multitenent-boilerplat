@@ -63,7 +63,7 @@ export class UnAuthService {
           email: payload.email,
           name: payload.name,
           phone_number: payload.phone_number,
-          password: await bcrypt.hash(payload.password, 10),
+          password: payload.password,
           status: 'ACTIVE',
         };
 

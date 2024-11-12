@@ -7,6 +7,7 @@ import { getTenantConnection } from './tenency.utils';
 import { DepartmentModule } from 'src/modules/tenented/department/department.module';
 import { UserModule } from 'src/modules/tenented/user/user.module';
 import { AuthModule } from 'src/modules/tenented/auth/auth.module';
+import { AdminAccountModule } from 'src/modules/admin/admin-accounts/admin-account.module';
 
 const connectionFactory = {
   provide: CONNECTION,
@@ -23,7 +24,7 @@ const connectionFactory = {
 
 @Global()
 @Module({
-  imports: [DepartmentModule, UserModule, AuthModule],
+  imports: [DepartmentModule, UserModule, AuthModule, AdminAccountModule ],
   providers: [connectionFactory],
   exports: [CONNECTION],
 })

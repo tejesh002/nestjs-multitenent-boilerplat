@@ -6,7 +6,9 @@ import { UserModule } from 'src/modules/tenented/user/user.module';
 import * as ormconfig from 'src/orm_configs/orm.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AdminAccountModule } from './modules/admin/admin-accounts/admin-account.module';
 import { AuthModule } from './modules/tenented/auth/auth.module';
+
 
 @Module({
   imports: [
@@ -14,7 +16,8 @@ import { AuthModule } from './modules/tenented/auth/auth.module';
     TenencyModule,
     DepartmentModule,
     UserModule,
-    AuthModule
+    AuthModule,
+    AdminAccountModule,
   ],
   controllers: [AppController],
   providers: [AppService],

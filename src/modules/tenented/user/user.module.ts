@@ -4,6 +4,7 @@ import { Request as ExpressRequest } from 'express';
 import { getTenantConnection } from 'src/modules/tenency/tenency.utils';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './user.entity';
+import { UserService } from './user.service';
 
 const connectionFactory = {
   provide: 'CONNECTION',
@@ -22,6 +23,7 @@ const connectionFactory = {
 
 @Module({
   imports: [TypeOrmModule.forFeature([User])],
-  providers: [connectionFactory],
+  providers: [connectionFactory, UserService],
+  exports: [UserService],
 })
 export class UserModule {}

@@ -10,6 +10,9 @@ export class User extends AbstractEntity {
   @Column({ select: false, nullable: true })
   password: string;
 
+  @Column({ nullable: true, unique: true, select: false })
+  refresh_token: string;
+
   @Column({ nullable: true })
   name: string;
 
