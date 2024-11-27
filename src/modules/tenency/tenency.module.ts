@@ -24,7 +24,7 @@ const connectionFactory = {
 
 @Global()
 @Module({
-  imports: [DepartmentModule, UserModule, AuthModule, AdminAccountModule ],
+  imports: [DepartmentModule, UserModule, AuthModule, AdminAccountModule],
   providers: [connectionFactory],
   exports: [CONNECTION],
 })
